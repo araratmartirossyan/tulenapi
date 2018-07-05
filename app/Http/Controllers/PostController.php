@@ -1,14 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\PostModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PostController extends Controller {
 
   public function index() {
-    $post = Post::all();
+    $post = PostModel::all();
     return response() -> json($post);
   }
 
@@ -16,7 +16,7 @@ class PostController extends Controller {
     $this -> validate($request, [
       'title' => 'required'
     ]);
-    $newPost = Post::create($request->all());
+    $newPost = PostModel::create($request->all());
     if ($newPost) {
       return response() -> json([
         'status' => 'success',
@@ -28,13 +28,13 @@ class PostController extends Controller {
   }
 
   public function remove(Request $request, $id) {
-    $item = Post::find($id);
+    $item = PostModel::find($id);
     $item -> delete();
     return response() -> json('Item with ' . $id . ' removed');
   }
 
   public function editPost(Request $request, $id) {
-    $item = Post::find($id);
+    $item = PostModel::find($id);
     $item -> title = $request -> input('title');
     $item -> description = $request -> input('description');
     $item -> image = $request -> input('image');
@@ -47,17 +47,17 @@ class PostController extends Controller {
   }
 
   public function getPost(Request $request, $id) {
-    $item = Post::find($id);
+    $item = PostModel::find($id);
     return response() -> json($item);
   }
 
   public function sort(Request $request, $id) {
-  	$items = Post::where('category_id', $id) -> get();
+  	$items = PostModel::where('category_id', $id) -> get();
   	return response() -> json($items);
   }
 
   public function view(Request $request, $id) {
-  	$post = Post::find($id);
+  	$post = PostModel::find($id);
   	if (!$post) {
   		return null;
   	}
@@ -68,7 +68,7 @@ class PostController extends Controller {
   }
 
   public function like(Request $request, $id) {
-  	$post = Post::find($id);
+  	$post = PostModel::find($id);
   	if (!$post) {
   		return null;
   	}
@@ -79,7 +79,7 @@ class PostController extends Controller {
   }
 
   public function unlike(Request $request, $id) {
-  	$post = Post::find($id);
+  	$post = PostModel::find($id);
   	if (!$post) {
   		return null;
   	}
