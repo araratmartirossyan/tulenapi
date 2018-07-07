@@ -26,4 +26,19 @@ class CategoriesController extends Controller {
       return response()->json(['status' => 'fail']);
     }
   }
+
+  public function remove(Request $request, $id) {
+    $item = Category::find($id);
+    $item -> delete();
+    return response() -> json('Item with ' . $id . ' removed');
+  }
+
+  public function editCategory(Request $request, $id) {
+    $item = Category::find($id);
+    $item -> title = $request -> input('title');
+    $item -> save();
+
+    return response() -> json('Item was updated');
+
+  }
 }
