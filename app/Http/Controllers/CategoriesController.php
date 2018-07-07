@@ -12,6 +12,11 @@ class CategoriesController extends Controller {
     return response() -> json($post);
   }
 
+  public function getCategory(Request $request, $id) {
+    $item = Category::find($id);
+    return response() -> json($item);
+  }
+
   public function create(Request $request) {
     $this -> validate($request, [
       'title' => 'required'

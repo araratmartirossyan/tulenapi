@@ -3,6 +3,8 @@
 $router->group(['prefix' => 'api/v1'], function ($router) {
 	// get all categories
 	$router->get('categories', 'CategoriesController@index');
+    // get one category
+    $router->get('categories/{id}', 'CategoriesController@getCategory');
 	// post new category
 	$router->post('categories', 'CategoriesController@create');
     // remove category
