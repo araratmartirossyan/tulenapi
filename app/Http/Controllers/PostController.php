@@ -13,9 +13,6 @@ class PostController extends Controller {
   }
 
   public function create(Request $request) {
-    $this -> validate($request, [
-      'title' => 'required'
-    ]);
     $newPost = Post::create($request->all());
     if ($newPost) {
       return response() -> json([
